@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>jQuery Focal simple demo</title>
+		<meta name="description" content="A jQuery Focal simple demo." />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+			body {
+				max-width: 700px;
+				margin: 0 auto;
+				padding: 25px;
+				font: 16px / 1 'Helvetica Neue', Arial, sans-serif;
+			}
+			h1 {
+				line-height: 1.2;
+			}
+			p {
+				line-height: 1.3;
+				color: #888;
+			}
+			ol {
+				position: relative;
+				margin: 0;
+				margin-top: 1.7em;
+				padding-top: 50%;
+				background-color: #eee;
+			}
+			li {
+				display: block;
+				position: absolute;
+				width: 30px;
+				height: 30px;
+				border-radius: 100%;
+				text-align: center;
+				line-height: 30px;
+				color: white;
+				cursor: pointer;
+				-webkit-transform: translateZ(0); /* Chrome bugs hack */
+				transition: -webkit-filter 1s;
+			}
+			li:nth-child(1) {
+				left: 20%;
+				top: 35%;
+				background-color: hsl(0, 60%, 50%);
+			}
+			li:nth-child(2) {
+				left: 60%;
+				top: 10%;
+				background-color: hsl(30, 60%, 50%);
+			}
+			li:nth-child(3) {
+				left: 30%;
+				top: 70%;
+				background-color: hsl(60, 60%, 50%);
+			}
+			li:nth-child(4) {
+				left: 58%;
+				top: 54%;
+				background-color: hsl(90, 60%, 50%);
+			}
+			li:nth-child(5) {
+				left: 84%;
+				top: 65%;
+				background-color: hsl(120, 60%, 50%);
+			}
+			li:nth-child(6) {
+				left: 10%;
+				top: 10%;
+				background-color: hsl(150, 60%, 50%);
+			}
+			li:nth-child(7) {
+				left: 40%;
+				top: 25%;
+				background-color: hsl(180, 60%, 50%);
+			}
+			li:nth-child(8) {
+				left: 80%;
+				top: 30%;
+				background-color: hsl(210, 60%, 50%);
+			}
+			.focused:before {
+				content: 'FOCUS';
+				position: absolute;
+				left: -1em;
+				right: -1em;
+				top: 100%;
+				margin-top: 4px;
+				font-size: 10px;
+				line-height: 1;
+				font-weight: bold;
+				letter-spacing: .02em;
+				color: #6e6e6e;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>jQuery Focal simple demo</h1>
+		<p>Best viewed in Safari. CSS blur filters in Chrome as of version 37 are still glitchy. Firefox probably wont support them properly <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter#Browser_compatibility" target="_blank">until version 34</a>.</p>
+		<p>Click or tap a numbered item to try the effect.</p>
+		<ol>
+			<li class="focused">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+		</ol>
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="jquery.focal.js"></script>
+		<script>
+			$(function() {
+				$('.focused').focalPoint();
+				$('li').click(function() {
+					$(this).focalPoint({
+						callback: function() {
+							$(this).addClass('focused').siblings().removeClass('focused');
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
