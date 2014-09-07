@@ -6,7 +6,7 @@ Simulates a camera focal point on a layer in a container using CSS blur filters.
 
 Try out `demo.html` [via RawGit](http://rawgit.com/jaydenseric/Focal/master/demo.html).
 
-<img src="screenshot.png" alt="jQuery Focal in Safari screenshot" width="642" height="337" />
+<img src="screenshot.png" alt="jQuery Focal in Safari screenshot" width="642" />
 
 ## Browser support
 
