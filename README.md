@@ -33,3 +33,12 @@ $('#layer').focalPoint({
 	}
 });
 ```
+
+If you would like changes to the focal point to transition, apply these styles to all layers:
+
+```css
+.layer {
+	-webkit-transform: translateZ(0); /* Chrome bugs hack */
+	transition: -webkit-filter 1s;
+}
+```
