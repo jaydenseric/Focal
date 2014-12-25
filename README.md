@@ -1,10 +1,10 @@
 # jQuery Focal
 
-Simulates a camera focus within a 3D CSS `transform` powered scene, by blurring layers (using CSS filters) according to proximity to the focal point (determined via `translateZ` values).
+Simulates a camera focus within a CSS 3D transform powered scene, by blurring layers (using CSS filters) according to proximity to the focal point (determined via `translateZ` values).
 
 ## Demo
 
-Try out `demo.html` [via RawGit](http://rawgit.com/jaydenseric/Focal/master/demo.html).
+Try out *demo.html* [via RawGit](http://rawgit.com/jaydenseric/Focal/master/demo.html).
 
 <img src="screenshot.png" alt="Screenshot of the jQuery Focal demo in Safari" width="728" />
 
@@ -15,17 +15,17 @@ Try out `demo.html` [via RawGit](http://rawgit.com/jaydenseric/Focal/master/demo
 - Firefox 35+
 - Opera 15+
 
-Dependant on [CSS filter support](http://caniuse.com/#feat=css-filters), specifically `blur()`.
+Dependant on [CSS `filter` support](http://caniuse.com/#feat=css-filters), specifically `blur`.
 
 Works fine in Chrome and beautifully in Safari. Firefox won't support filters by default [until version 35](https://developer.mozilla.org/en-US/docs/Web/CSS/filter#Browser_compatibility). IE is a bummer as usual, although Microsoft says [it's on the way](https://status.modern.ie/filters).
 
 ## Usage
 
-Refer to `demo.html` for a working example.
+Refer to *demo.html* for a working example.
 
 In the HTML, create a container and apply a CSS `perspective` in pixels.
 
-Add scene layers to the container with varying CSS `transform` `translateZ` values. Scene layers must be child to the container as nested transforms are not yet supported.
+Add scene layers to the container with varying CSS transform `translateZ` values. Scene layers must be child to the container as nested transforms are not yet supported.
 
 If desired, set a transition for the blur on all layers:
 
