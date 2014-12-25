@@ -1,51 +1,39 @@
+// jQuery Focal: https://github.com/jaydenseric/Focal
 (function($) {
-
-	// Sets the focus layer within a container
-	$.fn.focalPoint = function(options) {
-
+	// Sets the focal point within a container
+	$.fn.focalPoint = function(point, options) {
+		var $container = this;
 		// Defaults
 		var config = $.extend({
-			maxBlur:	8,
-			callback:	undefined
+			minZ	: 0,
+			maxZ	: 1000,
+			maxBlur	: 8
 		}, options);
-
-		// Derived
-		var	$layer		= this,
-			$foreground	= $layer.prevAll(),
-			$background	= $layer.nextAll(),
-			blurStep	= config.maxBlur / ($foreground.length + 1 + $background.length);
-
-		// Sets CSS blur filter cross-browser
-		function blur($layer, blur) {
-			var value = 'blur(' + blur + 'px)';
-			$layer.css({
-				'-webkit-filter':	value,
-				'filter':			value
+		// Gets an element's translateZ
+		function getTranslateZ($element) {
+			var transform = $element.css('transform');
+			if (transform == 'none') return 0;
+			return parseInt(transform.split(',')[14]);
+		}
+		// Sets a cross-browser CSS filter blur
+		function blur($element, amount) {
+			var value = 'blur(' + amount + 'px)';
+			$element.css({
+				'-webkit-filter'	: value,
+				'filter'			: value
 			});
 		}
-
-		// Sets gradual blur on layers
-		function blurLayers($layers) {
-			$layers.each(function(index) {
-				blur($(this), blurStep * (index + 1));
-			});
-		}
-
-		// Blur foreground layers
-		blurLayers($foreground);
-
-		// Sharpen focus layer
-		blur($layer, 0);
-
-		// Blur background layers
-		blurLayers($background);
-
-		// Run optional callback
-		if (typeof config.callback === 'function') config.callback.call($layer);
-
-		// jQuery chaining
-		return $layer;
-
+		// Get focus point (may be supplied as a number or jQuery object)
+		var focusZ = $.isNumeric(point) ? point : getTranslateZ(point);
+		// Blur layers according to their distance from the focal point
+		$container.children().each(function() {
+			var	$layer			= $(this),
+				layerZ			= getTranslateZ($layer),
+				distance		= Math.abs(focusZ - layerZ),
+				blurIntensity	= distance / (config.maxZ - config.minZ);
+			blur($layer, blurIntensity * config.maxBlur);
+		});
+		// Allow chaining
+		return $container;
 	};
-
 }(jQuery));

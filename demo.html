@@ -19,25 +19,29 @@
 				line-height: 1.3;
 				color: #888;
 			}
+			a {
+				text-decoration: none;
+			}
 			ol {
 				position: relative;
 				margin: 0;
 				margin-top: 1.7em;
 				padding-top: 50%;
-				background-color: #eee;
+				background: radial-gradient(white, #e2e2e2);
+				-webkit-perspective: 800px;
+				perspective: 800px;
 			}
 			li {
 				display: block;
 				position: absolute;
-				width: 30px;
-				height: 30px;
+				width: 35px;
+				height: 35px;
 				border-radius: 100%;
 				text-align: center;
-				line-height: 30px;
+				line-height: 35px;
 				color: white;
 				cursor: pointer;
-				-webkit-transform: translateZ(0); /* Chrome bugs hack */
-				transition: -webkit-filter 1s;
+				transition: all 1s;
 			}
 			li:nth-child(1) {
 				left: 20%;
@@ -48,36 +52,50 @@
 				left: 60%;
 				top: 10%;
 				background-color: hsl(30, 60%, 50%);
+				-webkit-transform: translateZ(-200px);
+				transform: translateZ(-200px);
 			}
 			li:nth-child(3) {
 				left: 30%;
 				top: 70%;
 				background-color: hsl(60, 60%, 50%);
+				-webkit-transform: translateZ(-300px);
+				transform: translateZ(-300px);
 			}
 			li:nth-child(4) {
 				left: 58%;
 				top: 54%;
 				background-color: hsl(90, 60%, 50%);
+				-webkit-transform: translateZ(-400px);
+				transform: translateZ(-400px);
 			}
 			li:nth-child(5) {
 				left: 84%;
 				top: 65%;
 				background-color: hsl(120, 60%, 50%);
+				-webkit-transform: translateZ(-500px);
+				transform: translateZ(-500px);
 			}
 			li:nth-child(6) {
 				left: 10%;
 				top: 10%;
 				background-color: hsl(150, 60%, 50%);
+				-webkit-transform: translateZ(-600px);
+				transform: translateZ(-600px);
 			}
 			li:nth-child(7) {
 				left: 40%;
 				top: 25%;
 				background-color: hsl(180, 60%, 50%);
+				-webkit-transform: translateZ(-700px);
+				transform: translateZ(-700px);
 			}
 			li:nth-child(8) {
 				left: 80%;
 				top: 30%;
 				background-color: hsl(210, 60%, 50%);
+				-webkit-transform: translateZ(-800px);
+				transform: translateZ(-800px);
 			}
 			.focused:before {
 				content: 'FOCUS';
@@ -95,11 +113,11 @@
 		</style>
 	</head>
 	<body>
-		<h1>jQuery Focal simple demo</h1>
-		<p>Best viewed in Safari. CSS blur filters in Chrome as of version 37 are still glitchy. Firefox probably wont support them properly <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter#Browser_compatibility" target="_blank">until version 34</a>.</p>
-		<p>Click or tap a numbered item to try the effect.</p>
+		<h1><a href="https://github.com/jaydenseric/Focal">jQuery Focal</a> demo</h1>
+		<p>Click/tap a numbered item, or move the slider to try the effect. Dependant on browser <a href="http://caniuse.com/#search=css-filter">CSS filter support</a>. Most effective in Safari.</p>
+		<input type="range" min="-800" max="0" />
 		<ol>
-			<li class="focused">1</li>
+			<li>1</li>
 			<li>2</li>
 			<li>3</li>
 			<li>4</li>
@@ -112,14 +130,21 @@
 		<script src="jquery.focal.js"></script>
 		<script>
 			$(function() {
-				$('.focused').focalPoint();
+				var $container = $('ol');
+				// Enable click to focus
 				$('li').click(function() {
-					$(this).focalPoint({
-						callback: function() {
-							$(this).addClass('focused').siblings().removeClass('focused');
-						}
-					});
+					var $layer = $(this);
+					$container.focalPoint($layer);
+					$layer.addClass('focused').siblings().removeClass('focused');
 				});
+				// Enable focus via slider
+				var $input = $('input');
+				$input.on('change', function() {
+					$container.focalPoint($(this).val());
+					$container.find('.focused').removeClass('focused');
+				});
+				// Trigger initial focus
+				$input.trigger('change');
 			});
 		</script>
 	</body>
